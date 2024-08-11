@@ -6,4 +6,6 @@ import java.util.Optional;
 
 public interface IFilmService {
     String getFilmTitle(short filmID);
+
+    String pagedFilms(long page, short minLength);
 }
