@@ -49,4 +49,11 @@ public class FilmResource {
     public String actors(@PathParam("startsWith") String startsWith, @PathParam("minLength") short minLength) {
         return filmService.actors(startsWith, minLength);
     }
+
+    @GET
+    @Path("/films-rental-rate/{minLength}/{rentalRate}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String filmsRentalRate(@PathParam("minLength") short minLength, @PathParam("rentalRate") Float rentalRate) {
+        return filmService.updateRentalRate(minLength, rentalRate);
+    }
 }

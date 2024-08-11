@@ -19,6 +19,13 @@ public class Film {
         this.length = length;
     }
 
+    public Film(short filmId, String title, short length, Float rentalRate) {
+        this.filmId = filmId;
+        this.title = title;
+        this.length = length;
+        this.rentalRate = rentalRate;
+    }
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "film_id")

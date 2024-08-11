@@ -5,6 +5,7 @@ import com.speedment.jpastreamer.projection.Projection;
 import com.speedment.jpastreamer.streamconfiguration.StreamConfiguration;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import org.tarkiba.pathe.data.model.Film;
 import org.tarkiba.pathe.data.model.Film$;
 
@@ -40,6 +41,22 @@ public class FilmRepository implements IFilmRepository  {
         return jpaStreamer.stream(sc)
                 .filter(Film$.title.startsWith(startsWith).and(Film$.length.greaterOrEqual(minLength)))
                 .sorted(Film$.length.reversed());
+    }
+
+    @Override
+    // transactional here means we persist any updates we make on the entity
+    @Transactional
+    public void updateRentalRate(short minLength, Float rentalRate) {
+        jpaStreamer.stream(Film.class)
+                .filter(Film$.length.greaterOrEqual(minLength))
+                .forEach(f -> f.setRentalRate(rentalRate));
+    }
+
+    @Override
+    public Stream<Film> films(short minLength) {
+        return jpaStreamer.stream(Projection.select(Film$.filmId, Film$.title, Film$.length, Film$.rentalRate))
+                .filter(Film$.length.greaterOrEqual(minLength))
+                .sorted(Film$.length);
     }
 }
 

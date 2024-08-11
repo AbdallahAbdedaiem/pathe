@@ -6,7 +6,10 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public interface IFilmRepository {
-    public Optional<Film> getFilm(short filmID);
-    public Stream<Film> paged(long page, short minLength);
-    public Stream<Film> actors(String startsWith, short minLength);
+    Optional<Film> getFilm(short filmID);
+    Stream<Film> paged(long page, short minLength);
+    Stream<Film> actors(String startsWith, short minLength);
+    void updateRentalRate(short minLength, Float rentalRate);
+    Stream<Film> films(short minLength);
+
 }
