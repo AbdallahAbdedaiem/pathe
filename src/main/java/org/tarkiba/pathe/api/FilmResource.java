@@ -35,4 +35,18 @@ public class FilmResource {
     public String getFilmTitle(@PathParam("filmId") short fildId) {
         return filmService.getFilmTitle(fildId);
     }
+
+    @GET
+    @Path("/films/{page}/{minLength}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFilmPaged(@PathParam("page") long page, @PathParam("minLength") short minLength) {
+        return filmService.pagedFilms(page, minLength);
+    }
+
+    @GET
+    @Path("/films-with-actors/{startsWith}/{minLength}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String actors(@PathParam("startsWith") String startsWith, @PathParam("minLength") short minLength) {
+        return filmService.actors(startsWith, minLength);
+    }
 }

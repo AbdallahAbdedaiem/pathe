@@ -21,6 +21,22 @@ public class FilmService implements IFilmService {
 
     @Override
     public String pagedFilms(long page, short minLength) {
-        return filmRepository.paged(page, minLength).map(f ->  String.format("%s (%d min)", f.getTitle(), f.getLength())).collect(Collectors.joining("\n"));
+        return filmRepository.paged(page, minLength)
+                .map(f ->  String.format("%s (%d min)", f.getTitle(), f.getLength()))
+                .collect(Collectors.joining("\n"));
+    }
+
+    @Override
+    public String actors(String startsWith, short minLength) {
+        return filmRepository.actors(startsWith, minLength)
+                .map(f ->  String.format("%s (%d min) %s",
+                                f.getTitle(),
+                                f.getLength(),
+                                f.getActors().stream()
+                                        .map(a -> String.format("%s %s", a.getFirstName(), a.getLastName()))
+                                        .collect(Collectors.joining(", "))
+                        )
+                )
+                .collect(Collectors.joining("\n"));
     }
 }

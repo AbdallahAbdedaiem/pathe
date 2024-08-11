@@ -8,4 +8,7 @@ public interface IFilmService {
     String getFilmTitle(short filmID);
 
     String pagedFilms(long page, short minLength);
+
+    String actors(String statsWith, short minLength);
+
 }

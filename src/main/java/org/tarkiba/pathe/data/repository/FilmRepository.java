@@ -1,6 +1,8 @@
 package org.tarkiba.pathe.data.repository;
 
 import com.speedment.jpastreamer.application.JPAStreamer;
+import com.speedment.jpastreamer.projection.Projection;
+import com.speedment.jpastreamer.streamconfiguration.StreamConfiguration;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.tarkiba.pathe.data.model.Film;
@@ -24,10 +26,44 @@ public class FilmRepository implements IFilmRepository  {
 
     @Override
     public Stream<Film> paged(long page, short minLength) {
-        return jpaStreamer.stream(Film.class)
+        // INFO need also a matching constructor on the entity for this projection
+        return jpaStreamer.stream(Projection.select(Film$.filmId, Film$.title, Film$.length))
                 .filter(Film$.length.greaterOrEqual(minLength))
                 .sorted(Film$.length)
                 .skip(page * PAGE_LENGTH)
                 .limit(PAGE_LENGTH);
     }
+
+    @Override
+    public Stream<Film> actors(String startsWith, short minLength) {
+        final StreamConfiguration<Film> sc = StreamConfiguration.of(Film.class).joining(Film$.actors);
+        return jpaStreamer.stream(sc)
+                .filter(Film$.title.startsWith(startsWith).and(Film$.length.greaterOrEqual(minLength)))
+                .sorted(Film$.length.reversed());
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
