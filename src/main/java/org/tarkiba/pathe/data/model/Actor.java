@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "actor", schema = "sakila")
 public class Actor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
