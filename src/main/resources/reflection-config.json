@@ -1,0 +1,11 @@
+[
+  {
+    "name" : "com.speedment.jpastreamer.termopmodifier.standard.StandardTerminalOperationModifierFactory",
+    "allDeclaredMethods" : true,
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]
